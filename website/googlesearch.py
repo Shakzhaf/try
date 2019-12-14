@@ -1,8 +1,6 @@
 from apiclient.discovery import build
 import pickle
-#api_key='AIzaSyB7Dk9LOuWmpGx8CWkwBVL9_6itzl8rRKU'   #project1
-#api_key='AIzaSyCu7s2IVDXU62gjiQ__O18MqdXWWxDbsBU'   #project1
-#api_key='AIzaSyA7b6ewgE5-eHZqCV8fAQDUBOAXGB4U_eE'   #project2
+
 
 #search_engine_id='015065351241375742654:cuvgckgk3ds'
 #resource = build("customsearch", 'v1', developerKey=api_key).cse()
