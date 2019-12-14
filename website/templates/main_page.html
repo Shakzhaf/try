@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Parallax scroll - Responsive layout and Navigation - Wireframe</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  <style type="text/css">
+    
+  </style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- navigation -->
+<nav>
+<div class="navigation" role="navigation">
+	<div class="nav-bar">
+			<div class="mobile-icon">Menu</div>
+			<ul>
+		<a class="page-scroll" href="#top"><span class="header-logo">Shalom</span></a>
+
+		<li><a class="page-scroll" href="#menu1">ALL</a></li>
+
+		<li><a class="page-scroll" href="#menu2">Images</a></li>
+
+		<li><a class="page-scroll" href="#menu3">Dropdown</a></li>
+
+		<li><a class="page-scroll" href="#menu4">Sidebar</a></li>
+
+		<li><a class="page-scroll" href="#menu5">Help</a></li>
+			</ul>
+    <hr><hr>
+    <div id="header">
+
+          <!-- Inner -->
+            <div class="inner">
+              <header>
+                <h1><a href="main_page.html" id="logo">Shalom!</a></h1>
+                <hr/>
+                <!--<input type="text" id="search" class="input" name="firstname" placeholder="Have a look..">-->
+                <form  class="input" id=" search" name="search" action="." method="post">
+                  <!--<label>Name:</label>-->
+                  <input type="text" name="query">
+                  <input class="button circled scrolly" type="submit" value="Start">
+                </form>
+
+              </header>
+              <footer>
+                <!--<a href="#banner" class="button circled scrolly" >Start</a>-->
+              </footer>
+            </div>
+	 </div> 
+  </div>
+</div>
+</nav>
+
+</body>
+</html>

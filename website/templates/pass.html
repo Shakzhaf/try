@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
+        <title>results</title>
+    </head>
+    <body>
+        <!--
+
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4><b>Results</b></h4>
+            </li>
+            {#    loop through galaxies and render them in list#}
+            {% for i in range(0,links|length) %}
+                <li class="collection-item"><a href="{{links[i]}}">{{ titles[i] }}</a>
+                    <li><img src="{{images[i]}}"></li>
+                    <li>{{links[i]}}</li>
+                    <li>{{desc[i]}}</li>
+                </li>
+            {% endfor %}
+        </ul>
+
+        -->
+        
+
+
+        <!--................................................................................................-->
+
+        <link rel="preload" href="{{ url_for('static', filename='images/pic02.jpg') }}" as="image"> 
+		<div id="page-wrapper">
+
+
+			<!-- Banner -->
+				
+
+			<!-- Carousel -->
+				<section class="carousel">
+					<div class="reel">
+                    
+                    {% for i in range(0,links|length) %}
+						<article>
+							<a href="{{links[i]}}" class="image featured"><img src={{images[i]}}" alt="" /></a>
+							<header>
+								<h3><a href="#">{{ titles[i] }}</a></h3>
+							</header>
+							<p>{{desc[i]}}</p>
+							
+							<span class="text"> Preview
+								<div class="iframe-preview">
+    								<iframe src="{{links[i]}}" style="border:0px #FFFFFF none;" name="test" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="2000px" width="1000px"></iframe>
+  								</div>
+  							</span>
+                        </article>
+
+                    {% endfor %}
+
+                    
+                    </div>
+                </section>
+            
+
+
+        </div>
+        
+
+    </body>
+</html>
