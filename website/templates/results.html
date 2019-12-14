@@ -53,11 +53,9 @@
                     
                     <span class="text"> Preview
                         <div class="iframe-preview">
-                            
-                                <iframe id="iframe" src="" style="border:0px #FFFFFF none;" name="test" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="500px" width="250px"></iframe>
-                            
-                            </div>
-                      </span>
+                            <iframe id="iframe" src="" style="border:0px #FFFFFF none;" name="test" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="2000px" width="1000px"></iframe>
+                          </div>
+                        </span>
                 </article>
 
             
@@ -121,10 +119,10 @@
             // Query & update the template content
             
             
-            //template_clone.querySelector("#imageimage").setAttribute("src",get_image());
+            template_clone.querySelector("#imageimage").setAttribute("src",`${data[i][3]}`);
             template_clone.querySelector("#imageimage").setAttribute("href",`${data[i][1]}`);
             //console.log(template_clone.querySelector("#imageimage"))
-            template_clone.querySelector("#imageimage").setAttribute("alt",`${data[i][2]}`);
+            template_clone.querySelector("#imageimage").setAttribute("alt",`${data[i][0]}`);
             template_clone.querySelector("#title").innerHTML = `${data[i][0]}`;
             template_clone.querySelector("#title").setAttribute("href", `${data[i][1]}`);
             //template_clone.querySelector("#iframe").setAttribute("src", `${data[i][1]}`);

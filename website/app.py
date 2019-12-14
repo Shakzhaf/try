@@ -28,7 +28,7 @@ def getvalue():
 
     db=search(query, number_of_query=25)
     #print(db)
-    quantity=2
+    quantity=3
     total_results=len(db)
     posts=total_results
 
@@ -48,12 +48,12 @@ def load():
             # Slice 0 -> quantity from the db
 
             # print(db[0])
-            # for i in range(quantity):
-            #     print('extracting image for '+str(i))
-            #     db[i].append(get_image(db[i][1]))
+            for i in range(quantity):
+                print('extracting image for '+str(i))
+                db[i].append(get_image(db[i][1]))
                 
             
-            res = make_response(jsonify(db[0: quantity]), total_results)
+            res = make_response(jsonify(db[0: min(quantity, total_results)]), total_results)
 
         elif counter == posts:
             print("No more results")
@@ -63,11 +63,11 @@ def load():
             #print("Returning posts "+str(counter)+" to "+str(counter + quantity))
             # Slice counter -> quantity from the db
 
-            # for i in range(counter,counter+quantity):
-            #     print('extracting image for '+str(i))
-            #     db[i].append(get_image(db[i][1]))
+            for i in range(counter,counter+quantity):
+                print('extracting image for '+str(i))
+                db[i].append(get_image(db[i][1]))
 
-            res = make_response(jsonify(db[counter: counter + quantity]), total_results)
+            res = make_response(jsonify(db[counter: min(counter + quantity,total_results)]), total_results)
 
     return res
 

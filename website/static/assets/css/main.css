@@ -180,79 +180,74 @@ footer, header, hgroup, menu, nav, section {
 	
 /* Wide */
 
-	@media screen and (max-width: 1680px) {
+@media screen and (max-width: 1680px) {
 
-		/* Basic */
+	/* Basic */
 
-			body {
-				font-size: 14pt;
-				line-height: 1.75em;
+		body {
+			font-size: 14pt;
+			line-height: 1.75em;
+		}
+
+	/* Carousel */
+
+		.carousel {
+			padding: 1.5em 0 1.5em 0;
+		}
+
+			.carousel .reel {
+				padding: 0 1.5em 0 1.5em;
 			}
 
-		/* Carousel */
-
-			.carousel {
-				padding: 1.5em 0 1.5em 0;
+			.carousel article {
+				width: 18em;
+				margin: 0 1.25em 0 0;
 			}
 
-				.carousel .reel {
-					padding: 0 1.5em 0 1.5em;
-				}
-
-				.carousel article {
-					width: 18em;
-					margin: 0 1.25em 0 0;
-				}
-
-	}
+}
 .text {
-  		cursor: default;
-  		display: block;
-  		position: relative;
-  		border: 2px solid #ddd;
-  		padding: 5px;
- 	 	border-radius: 3px;
-  		font-size: 12px;
-	}
+	  cursor: default;
+	  display: block;
+	  position: relative;
+	  border: 2px solid #ddd;
+	  padding: 5px;
+	  border-radius: 3px;
+	  font-size: 12px;
+}
 .text:hover .iframe-preview {
-  opacity: 1;
-  -webkit-transform: translateX(-50%) translateY(0) scale(3);
-          transform: translateX(-50%) translateY(0) scale(3);
+opacity: 1;
+-webkit-transform: translateX(-50%) translateY(0) scale(3);
+	  transform: translateX(-50%) translateY(0) scale(3);
 }
 .text:hover {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  border-color: #333;
+box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+border-color: #333;
 }
 
 .iframe-preview {
-  transition: .7s ease-in-out opacity, .2s ease-in-out transform;
-  opacity:0;
-  position: relative;
-  bottom: 110%;
-  left: 0%;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-  width: 125px;
-  padding-right: 30px;
-  height: 90px;
-  border: 4px solid #fff;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  -webkit-transform-origin: 50% bottom;
-          transform-origin: 50% bottom;
-  z-index: 1000;
+transition: .7s ease-in-out opacity, .2s ease-in-out transform;
+opacity:0;
+position: absolute;
+bottom: 110%;
+left: 50%;
+box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+width: 50%;
+padding-right: 30px;
+height: 25%;
+border: 4px solid #fff;
+overflow-x: hidden;
+overflow-y: hidden;
+-webkit-transform-origin: 50% bottom;
+	  transform-origin: 50% bottom;
+z-index: 1000;
 
 }
 .iframe-preview iframe {
-  -webkit-transform: scale(0.25);
-          transform: scale(0.25);
-  -webkit-transform-origin: 0 0;
-          transform-origin: 0 0;
+-webkit-transform: scale(0.25);
+	  transform: scale(0.25);
+-webkit-transform-origin: 0 0;
+	  transform-origin: 0 0;
 }
-
-#link {
-	width: 80%;
-	overflow: hidden;
-  }
 
 
 
