@@ -42,6 +42,7 @@
                 <article>
                     
                     <a class="image featured"><img id="imageimage" src="" alt="IMAGE"  href=""/></a>
+                    <a id="setinner"></a>
                     
                     <header>
                         <h3><a class="card-title" id="title" href="#"></a></h3>
@@ -51,7 +52,7 @@
                     <span class="text-muted" id="content"></span>
                     
                     <span class="text"> Preview
-                        <div class="iframe-preview" id="iframe-preview">
+                        <div class="iframe-preview">
                             
                                 <iframe id="iframe" src="" style="border:0px #FFFFFF none;" name="test" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="500px" width="250px"></iframe>
                             
@@ -86,14 +87,14 @@
     var template = document.querySelector('#post_template');
     var loaded = document.querySelector("#loaded");
     var sentinel = document.querySelector('#sentinel');
-    //var image = document.querySelector('#card-image');
+    var image = document.querySelector('#imageimage');
     var iframe = document.querySelector('#iframe');
 
     // Set a counter to count the items loaded
     var counter = 0;
 
     // Function to request new items and render to the dom
-    function loadItems() {
+    async function loadItems() {
 
     // Use fetch to request data and pass the counter value in the QS
     fetch(`/load?c=${counter}`).then((response) => {
@@ -101,7 +102,7 @@
         // Convert the response data to JSON
         response.json().then((data) => {
 
-            console.log(data);
+            //console.log(data);
 
         // If empty JSON, exit the function
         if (!data.length) {
@@ -116,42 +117,83 @@
 
             // Clone the HTML template
             let template_clone = template.content.cloneNode(true);
-            
-            var imageTemp='ram';
-
-            // fetch(`/getimage?link=${data[i][1]}`).then((response) => {
-            //     response.text().then((img_url) => {
-                    
-                    
-            //         var imageTemp = img_url;
-            //         //template_clone.querySelector("#imageimage").setAttribute("src", "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjb-MWWqbPmAhW06nMBHYMeCW4QjRx6BAgBEAQ&url=https%3A%2F%2Fsmaller-pictures.appspot.com%2F&psig=AOvVaw25-tjnMNHIv5T22TpLKcDj&ust=1576350448149801");
-            //         //template_clone.querySelector("#imageimage").setAttribute("href",`${img_url}`);
-                    
-            //     })
-            // }
-            // );
 
             // Query & update the template content
             
-            //console.log(imageTemp);
-            template_clone.querySelector("#imageimage").setAttribute("src",`${data[i][3]}`);
+            
+            //template_clone.querySelector("#imageimage").setAttribute("src",get_image());
             template_clone.querySelector("#imageimage").setAttribute("href",`${data[i][1]}`);
+            //console.log(template_clone.querySelector("#imageimage"))
             template_clone.querySelector("#imageimage").setAttribute("alt",`${data[i][2]}`);
             template_clone.querySelector("#title").innerHTML = `${data[i][0]}`;
             template_clone.querySelector("#title").setAttribute("href", `${data[i][1]}`);
-            template_clone.querySelector("#iframe").setAttribute("src", `${data[i][1]}`);
+            //template_clone.querySelector("#iframe").setAttribute("src", `${data[i][1]}`);
 
             //template_clone.querySelector("#link").innerHTML = `${data[i][1]}`;
             //template_clone.querySelector("#link").setAttribute("href", `${data[i][1]}`);
             
             template_clone.querySelector("#content").innerHTML = data[i][2];
 
-            
+            // async function get_image(){
+            //   const response = await fetch(`/getimage?link=${data[i][1]}`);
+            //   const url = await response.text();
+            //   console.log('this is the url');
+            //   //console.log(URL.createObjectURL(url))
+            //   //console.log(image)
+            //   document.getElementById("imageimage").setAttribute("src", `${url}`)
+            //   //template_clone.querySelector("#imageimage").setAttribute("src",URL.createObjectURL(url));
+            //   return
+            // }
+
+            // fetch(`/getimg?link=${data[i][1]}`).then(function(response){
+            //   response.text().then(function(url){
+
+            //     $(document).ready(function(){
+            //     $("imageimage").ready(function() {
+
+            //         template_clone.querySelector("#imageimage").setAttribute("src", url)
+
+            //     })
+
+            //     })
+
+            //   })
+            // })
+              
 
             
+            // $(document).ready(function(){
+            // $("imageimage").ready(function() {
+                // Handler for .load() called.
+                // const xhr = new XMLHttpRequest();
+                //   xhr.onload = function() {
+                //     console.log(this.responseText);
+                //     console.log(template_clone.querySelector("#imageimage"))
+                //     template_clone.querySelector("imageimage").setAttribute("src",this.responseText);
+                //   };
+
+                //   xhr.open("POST", "/getimage");
+                //   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                //   xhr.send(data[i][1]);
+                
+                //console.log('yeah boy im ready')
+                //cosole.log(link)
+                //console.log(`${data[i][0]}`)
+
+            //   });
+            // });
+
+            
+
+
+
+              
+
+            scroller.appendChild(template_clone);
+
 
             // Append template to dom
-            scroller.appendChild(template_clone);
+            //scroller.appendChild(template_clone);
 
             // Increment the counter
             counter += 1;

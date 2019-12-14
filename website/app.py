@@ -46,10 +46,11 @@ def load():
         if counter == 0:
             #print("Returning posts 0 to "+str(quantity)+" "+str(total_results))
             # Slice 0 -> quantity from the db
-            print(db[0])
-            for i in range(quantity):
-                print('extracting image for '+str(i))
-                db[i].append(get_image(db[i][1]))
+
+            # print(db[0])
+            # for i in range(quantity):
+            #     print('extracting image for '+str(i))
+            #     db[i].append(get_image(db[i][1]))
                 
             
             res = make_response(jsonify(db[0: quantity]), total_results)
@@ -61,22 +62,35 @@ def load():
         else:
             #print("Returning posts "+str(counter)+" to "+str(counter + quantity))
             # Slice counter -> quantity from the db
-            for i in range(counter,counter+quantity):
-                print('extracting image for '+str(i))
-                db[i].append(get_image(db[i][1]))
+
+            # for i in range(counter,counter+quantity):
+            #     print('extracting image for '+str(i))
+            #     db[i].append(get_image(db[i][1]))
+
             res = make_response(jsonify(db[counter: counter + quantity]), total_results)
 
     return res
 
-@app.route("/getimage")
+@app.route('/getimage', methods=['POST'])
 def getimg():
+    link=request.get_data().decode("utf-8")
+    print(link,type(link))
+    # if request.args:
+    #     link=str(request.args.get("link"))
+    image_url=get_image(link)
+    #print(image_url)
+    #res = make_response(jsonify(image_url))
+    #print(res)
+    #return res
+    return make_response(jsonify(image_url))
 
+@app.route('/getimg')
+def get_img():
+    
     if request.args:
         link=str(request.args.get("link"))
         image_url=get_image(link)
-    #print(image_url)
     res = make_response(jsonify(image_url))
-    print(res)
     return res
 
 
