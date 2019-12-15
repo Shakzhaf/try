@@ -17,7 +17,7 @@ protobuf==3.6.1
 pyasn1==0.4.8
 pyasn1-modules==0.2.7
 rsa==4.0
-simplejson==3.16.1
+simplejson==3.16.0
 six==1.11.0
 tensorboard==1.10.0
 tensorflow==1.10.0

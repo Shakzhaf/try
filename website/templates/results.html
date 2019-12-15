@@ -41,7 +41,7 @@
             
                 <article>
                     
-                    <a class="image featured"><img id="imageimage" src="" alt="IMAGE"  href=""/></a>
+                    <a class="image featured"><img id="imageimage"/></a>
                     <a id="setinner"></a>
                     
                     <header>
@@ -94,114 +94,55 @@
     // Function to request new items and render to the dom
     async function loadItems() {
 
-    // Use fetch to request data and pass the counter value in the QS
-    fetch(`/load?c=${counter}`).then((response) => {
+      // Use fetch to request data and pass the counter value in the QS
+      fetch(`/load?c=${counter}`).then(
+        (response) => {
+          response.json().then(
+            (data) => {
+              if (!data.length) {
+                  // Replace the spinner with "No more posts"
+                  sentinel.innerHTML = "No more posts";
+                  return;
+              }
 
-        // Convert the response data to JSON
-        response.json().then((data) => {
+              for (var i = 0; i < data.length; i++) {
 
-            //console.log(data);
-
-        // If empty JSON, exit the function
-        if (!data.length) {
-
-            // Replace the spinner with "No more posts"
-            sentinel.innerHTML = "No more posts";
-            return;
-        }
-
-        // Iterate over the items in the response
-        for (var i = 0; i < data.length; i++) {
-
-            // Clone the HTML template
-            let template_clone = template.content.cloneNode(true);
-
-            // Query & update the template content
-            
-            
-            template_clone.querySelector("#imageimage").setAttribute("src",`${data[i][3]}`);
-            template_clone.querySelector("#imageimage").setAttribute("href",`${data[i][1]}`);
-            //console.log(template_clone.querySelector("#imageimage"))
-            template_clone.querySelector("#imageimage").setAttribute("alt",`${data[i][0]}`);
-            template_clone.querySelector("#title").innerHTML = `${data[i][0]}`;
-            template_clone.querySelector("#title").setAttribute("href", `${data[i][1]}`);
-            //template_clone.querySelector("#iframe").setAttribute("src", `${data[i][1]}`);
-
-            //template_clone.querySelector("#link").innerHTML = `${data[i][1]}`;
-            //template_clone.querySelector("#link").setAttribute("href", `${data[i][1]}`);
-            
-            template_clone.querySelector("#content").innerHTML = data[i][2];
-
-            // async function get_image(){
-            //   const response = await fetch(`/getimage?link=${data[i][1]}`);
-            //   const url = await response.text();
-            //   console.log('this is the url');
-            //   //console.log(URL.createObjectURL(url))
-            //   //console.log(image)
-            //   document.getElementById("imageimage").setAttribute("src", `${url}`)
-            //   //template_clone.querySelector("#imageimage").setAttribute("src",URL.createObjectURL(url));
-            //   return
-            // }
-
-            // fetch(`/getimg?link=${data[i][1]}`).then(function(response){
-            //   response.text().then(function(url){
-
-            //     $(document).ready(function(){
-            //     $("imageimage").ready(function() {
-
-            //         template_clone.querySelector("#imageimage").setAttribute("src", url)
-
-            //     })
-
-            //     })
-
-            //   })
-            // })
-              
-
-            
-            // $(document).ready(function(){
-            // $("imageimage").ready(function() {
-                // Handler for .load() called.
-                // const xhr = new XMLHttpRequest();
-                //   xhr.onload = function() {
-                //     console.log(this.responseText);
-                //     console.log(template_clone.querySelector("#imageimage"))
-                //     template_clone.querySelector("imageimage").setAttribute("src",this.responseText);
-                //   };
-
-                //   xhr.open("POST", "/getimage");
-                //   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                //   xhr.send(data[i][1]);
+                let template_clone = template.content.cloneNode(true);
                 
-                //console.log('yeah boy im ready')
-                //cosole.log(link)
-                //console.log(`${data[i][0]}`)
+                template_clone.querySelector("#imageimage").setAttribute("href",`${data[i][1]}`)
+                template_clone.querySelector("#imageimage").setAttribute("alt",`${data[i][0]}`)
+                template_clone.querySelector("#title").innerHTML = `${data[i][0]}`
+                template_clone.querySelector("#title").setAttribute("href", `${data[i][1]}`)
+                template_clone.querySelector("#content").innerHTML = data[i][2];
+                
+                async function get_image(){
+                  fetch(`/getimg?link=${data[i][1]}`).then(
+                    (response) => {
+                      response.json().then(
+                        (url) => {
+                          template_clone.querySelector("#imageimage").setAttribute("src",url)
+                          scroller.appendChild(template_clone);
+                          return
+                        }
+                      )
+                    }
+                  )
+                }
 
-            //   });
-            // });
-
-            
+                get_image();
 
 
+                // Increment the counter
+                counter += 1;
 
-              
+                // Update the counter in the navbar
+                loaded.innerText = `${counter} items loaded ${data.length}`;
 
-            scroller.appendChild(template_clone);
-
-
-            // Append template to dom
-            //scroller.appendChild(template_clone);
-
-            // Increment the counter
-            counter += 1;
-
-            // Update the counter in the navbar
-            loaded.innerText = `${counter} items loaded ${data.length}`;
-
+              }
+            }
+          )
         }
-        })
-    })
+      )
     }
 
     // Create a new IntersectionObserver instance
@@ -222,6 +163,7 @@
 
     // Call the loadItems function
     loadItems();
+    window.onload = get_image();
 
     });
 
@@ -230,10 +172,6 @@
 
 
 </script>
-
-
-
-
 
 </body>
 
