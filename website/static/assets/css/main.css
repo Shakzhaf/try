@@ -104,7 +104,7 @@ footer, header, hgroup, menu, nav, section {
 	}
 
 	p {
-		text-align: justify;
+		/* text-align: justify; */
 	}
 
 	br.clear {
@@ -156,13 +156,7 @@ footer, header, hgroup, menu, nav, section {
 
 .carousel article {
 			display: inline-block;
-			width: 18em;
-			background: #fff;
-			text-align: center;
-			padding: 0 1em 3em 1em;
 			margin: 0 2em 0 0;
-			white-space: normal;
-			opacity: 1.0;
 		
 			
 		}
@@ -175,7 +169,6 @@ footer, header, hgroup, menu, nav, section {
 			}
 
 			.carousel article p {
-				text-align: center;
 			}
 	
 /* Wide */
@@ -201,7 +194,7 @@ footer, header, hgroup, menu, nav, section {
 
 			.carousel article {
 				width: 18em;
-				margin: 0 1.25em 0 0;
+				margin: 0 0 1.25em 0;
 			}
 
 }

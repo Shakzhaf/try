@@ -13,7 +13,6 @@
   <noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
   <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
 
-
   <title>Infinite load</title>
 </head>
 
@@ -33,35 +32,44 @@
         <div class="col">
 
           <h1 class="display-4 mb-3">Infinite load</h1>
-        
 
-          <div id="scroller" class="carousel">
-            <template id="post_template" class="reel">
-            
-            
-                <article>
-                    
-                    <a class="image featured"><img id="imageimage"/></a>
-                    <a id="setinner"></a>
-                    
-                    <header>
-                        <h3><a class="card-title" id="title" href="#"></a></h3>
-                        <h7><p><a class="card-link" id="link"></a></p></h7>
-                    </header>
-                    
-                    <span class="text-muted" id="content"></span>
-                    
-                    <span class="text"> Preview
-                        <div class="iframe-preview">
-                            <iframe id="iframe" src="" style="border:0px #FFFFFF none;" name="test" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="2000px" width="1000px"></iframe>
-                          </div>
-                        </span>
-                </article>
-
-            
+          <div id="scroller" class="row">
+            <template id="post_template">
+              <article class="col mb-5 mr-3">
+                <div class="card" style="width: 20rem; height: 100%;">
+                  <img class="card-img-top" id="imageimage" style="width: 100%; height: 200px; object-fit: cover;">
+                  <div class="card-body">
+                    <a href="" id="titleLink" target="_BLANK">
+                      <h5 class="card-title" id="title" >Card title</h5>
+                    </a>
+                    <a class="card-link" id="link" target="_BLANK"></a>
+                    <p class="card-text" id="content">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>
+              </article>
             </template>
-            
-            </div>
+          </div>
+
+        
+          <!-- <div id="scroller" class="carousel">
+            <template id="post_template" class="reel">
+              <article>
+                  <a class="image featured"><img id="imageimage"/></a>
+                  <a id="setinner"></a>
+                  <header>
+                    <h3><a class="card-title" id="title" href="#"></a></h3>
+                    <h7><p><a class="card-link" id="link"></a></p></h7>
+                  </header>
+                  <span class="text-muted" id="content"></span>
+                  <span class="text"> Preview
+                      <div class="iframe-preview">
+                        <iframe id="iframe" src="" style="border:0px #FFFFFF none;" name="test" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="2000px" width="1000px"></iframe>
+                      </div>
+                      </span>
+              </article>
+            </template>
+          </div> -->
 
           <!-- element to trigger the IntersectionObserver -->
           <div class="d-flex justify-content-center mb-3" id="sentinel">
@@ -112,8 +120,10 @@
                 template_clone.querySelector("#imageimage").setAttribute("href",`${data[i][1]}`)
                 template_clone.querySelector("#imageimage").setAttribute("alt",`${data[i][0]}`)
                 template_clone.querySelector("#title").innerHTML = `${data[i][0]}`
-                template_clone.querySelector("#title").setAttribute("href", `${data[i][1]}`)
+                template_clone.querySelector("#titleLink").setAttribute("href", `${data[i][1]}`)
                 template_clone.querySelector("#content").innerHTML = data[i][2];
+                template_clone.querySelector("#link").innerHTML = `${data[i][1]}`;
+                template_clone.querySelector("#link").setAttribute("href", `${data[i][1]}`);
                 
                 async function get_image(){
                   fetch(`/getimg?link=${data[i][1]}`).then(
@@ -163,7 +173,6 @@
 
     // Call the loadItems function
     loadItems();
-    window.onload = get_image();
 
     });
 
