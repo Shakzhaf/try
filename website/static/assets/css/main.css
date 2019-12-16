@@ -242,6 +242,11 @@ z-index: 1000;
 	  transform-origin: 0 0;
 }
 
+#content {
+	width: 80%;
+	overflow: scroll;
+}
+
 
 
 
