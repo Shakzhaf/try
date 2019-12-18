@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from pathlib import Path
 import sys
-
+from predict_gesture import predict_gesture
 
 # path_to_utils = Path("C:/Users/hp/intuitive_user_interface/gesture_recognition/mis/handtracking/utils")
 # path_to_haar = Path("C:/Users/hp/intuitive_user_interface/gesture_recognition/mis/haar_cascade_code")
@@ -18,7 +18,7 @@ palm_cascade = cv2.CascadeClassifier('./mis/haar_cascade_code/Hand_haar_cascade.
 
 #defaults
 score_thresh=0.5
-fps=1
+fps=0
 width=320
 height=180
 display=1
@@ -69,10 +69,14 @@ while(ret):
 
 		feed_image = webcam_img[y_d:y_d+h_d, x_d:x_d+w_d]
 
-		feed_image = cv2.resize(feed_image,(100,100))
+		feed_image = cv2.resize(feed_image,(28,28))
 		#feed_image = cv2.cvtColor(feed_image, cv2.COLOR_BGR2GRAY)
-		
+		answer=predict_gesture(feed_image)
+		detector_utils.draw_fps_on_image("Prediction: " + str(answer),
+                                             webcam_img)
+
 		cv2.imshow('feed_image',feed_image)
+		
 	except:
 		#print('no boxes maybe')
 		try:
@@ -84,10 +88,14 @@ while(ret):
 			h_d=palms[0][3]
 			w_d=palms[0][2]
 
-			feed_image = webcam_img[y_d:y_d+h_d, x_d:x_d+w_d]
+			feed_image = webcam_img[y_d:y_d+h_d+20, x_d:x_d+w_d+10]
 
-			feed_image = cv2.resize(feed_image,(100,100))
+			feed_image = cv2.resize(feed_image,(28,28))
 			#feed_image = cv2.cvtColor(feed_image, cv2.COLOR_BGR2GRAY)
+			answer=predict_gesture(feed_image)
+			detector_utils.draw_fps_on_image("Prediction: " + str(answer),
+	                                             webcam_img)
+			
 			
 			cv2.imshow('feed_image',feed_image)
 		except:
