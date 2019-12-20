@@ -47,7 +47,8 @@ while ret:
             model_hsv = image_hsv[y_d:y_d+h_d+20, x_d:x_d+w_d+10]
         except:
             print('no hand detected by haar')
-            model_hsv = image_hsv[50:75,125:175] # Select ROI
+            (x_d, y_d, w_d, h_d) = (185,39,75,75)
+            model_hsv = image_hsv[y_d:y_d+h_d+20, x_d:x_d+w_d+10]
         if cv2.waitKey(25) & 0xFF == ord('d'):
             calibarate = False
 
