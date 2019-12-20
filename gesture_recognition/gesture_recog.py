@@ -46,20 +46,11 @@ while(ret):
 	except:
 		print("Color conversion error")
 
-	boxes, scores = detector_utils.detect_objects(webcam_img,
-                                                      detection_graph, sess)
-
+	boxes, scores = detector_utils.detect_objects(webcam_img,detection_graph, sess)
 
 #box_coordinates(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np)
-	box_coordinates=detector_utils.box_coordinates(num_hands_detect, score_thresh,
-                                         scores, boxes, im_width, im_height,
-                                         webcam_img)
-
-	
-
-	detector_utils.draw_box_on_image(num_hands_detect, score_thresh,
-                                         scores, boxes, im_width, im_height,
-                                         webcam_img)
+	box_coordinates=detector_utils.box_coordinates(num_hands_detect, score_thresh,scores, boxes, im_width, im_height,webcam_img)
+	detector_utils.draw_box_on_image(num_hands_detect, score_thresh,scores, boxes, im_width, im_height,webcam_img)
 
 	try:
 		y_d=box_coordinates[0][1]
