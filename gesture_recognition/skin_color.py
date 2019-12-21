@@ -1,4 +1,6 @@
 import cv2
+import numpy as np
+import utilities
 
 palm_cascade = cv2.CascadeClassifier('./mis/haar_cascade_code/Hand_haar_cascade.xml')
 calibarate = True
@@ -15,7 +17,7 @@ def put_text(image,text):
     org = (50, 50) 
     fontScale = 1
     color = (255, 0, 0) 
-    thickness = 2
+    thickness = 1
     image = cv2.putText(image, text, org, font,  
                     fontScale, color, thickness, cv2.LINE_AA)
     return image
@@ -27,6 +29,7 @@ while ret:
     ret, image = cap.read()
     image  = cv2.resize(image,(width,height))
     image = cv2.flip(image,1)
+    image = utilities.contour_mask(image)
     image_hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV) 
 
     if cv2.waitKey(25) & 0xFF == ord('c'):
@@ -38,10 +41,6 @@ while ret:
             palms = palm_cascade.detectMultiScale(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 1.3, 5)
             (ex,ey,ew,eh) = palms[0]
             cv2.rectangle(image,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-            # x_d=palms[0][0]
-            # y_d=palms[0][1]
-            # w_d=palms[0][2]
-            # h_d=palms[0][3]
             (x_d, y_d, w_d, h_d) = palms[0]
             print('hand detected at: ',palms[0][0],' , ',palms[0][1],' , ',palms[0][2],' , ',palms[0][3])
             model_hsv = image_hsv[y_d:y_d+h_d+20, x_d:x_d+w_d+10]
@@ -52,12 +51,15 @@ while ret:
         if cv2.waitKey(25) & 0xFF == ord('d'):
             calibarate = False
 
+        
+        grabcut = utilities.grabcut(image,(x_d, y_d, w_d, h_d))
+        cv2.imshow('grabcut',grabcut)
+        # skin = utilities.contour_mask(grabcut)
+        # cv2.imshow('skin', skin)
+
         cv2.imshow('input image: ', image)
         cv2.imshow('sample: ', cv2.cvtColor(model_hsv,cv2.COLOR_HSV2RGB))
-            
-
-
-    
+        
 
     #Get the model histogram M
     M = cv2.calcHist([model_hsv], channels=[0, 1], mask=None, 
@@ -73,6 +75,7 @@ while ret:
     _, thresh = cv2.threshold(B, 30, 255, cv2.THRESH_BINARY)
 
     cv2.imshow('input image: ', image)
+    # cv2.imshow('preprocessed: ', preprocess(image))
     cv2.imshow('sample: ', cv2.cvtColor(model_hsv,cv2.COLOR_HSV2RGB))
     cv2.imshow('answer: ',cv2.bitwise_and(image,image, mask = thresh))
 
@@ -80,6 +83,3 @@ while ret:
         cv2.destroyAllWindows()
         cap.release()
         break
-
-    # cv2.imwrite("/assets/img/skin-detection/roi.png",cv2.cvtColor(model_hsv,cv2.COLOR_HSV2RGB))
-    # cv2.imwrite("/assets/img/skin-detection/backprojection1.png",cv2.bitwise_and(image,image, mask = thresh))

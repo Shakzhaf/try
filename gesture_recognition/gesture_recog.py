@@ -3,6 +3,7 @@ import numpy as np
 from pathlib import Path
 import sys
 from predict_gesture import predict_gesture
+import utilities
 
 # path_to_utils = Path("C:/Users/hp/intuitive_user_interface/gesture_recognition/mis/handtracking/utils")
 # path_to_haar = Path("C:/Users/hp/intuitive_user_interface/gesture_recognition/mis/haar_cascade_code")
@@ -40,6 +41,7 @@ ret = True
 while(ret):
 	ret, webcam_img = cap.read()
 	webcam_img = cv2.flip(webcam_img,1)
+	# webcam_img =utilities.ycbcr_skin_mask(webcam_img)
 	
 	try:
 		webcam_img = cv2.cvtColor(webcam_img, cv2.COLOR_BGR2RGB)
@@ -53,10 +55,11 @@ while(ret):
 	detector_utils.draw_box_on_image(num_hands_detect, score_thresh,scores, boxes, im_width, im_height,webcam_img)
 
 	try:
-		y_d=box_coordinates[0][1]
-		x_d=box_coordinates[0][0]
-		h_d=box_coordinates[1][1]-y_d
+		x_d=box_coordinates[0][0]-10
+		y_d=box_coordinates[0][1]+30
 		w_d=box_coordinates[1][0]-x_d
+		h_d=box_coordinates[1][1]-y_d+30
+		
 
 		feed_image = webcam_img[y_d:y_d+h_d, x_d:x_d+w_d]
 
@@ -74,10 +77,10 @@ while(ret):
 			palms = palm_cascade.detectMultiScale(cv2.cvtColor(webcam_img, cv2.COLOR_BGR2GRAY), 1.3, 5)
 			for (ex,ey,ew,eh) in palms:
 				cv2.rectangle(webcam_img,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-			y_d=palms[0][1]
 			x_d=palms[0][0]
-			h_d=palms[0][3]
+			y_d=palms[0][1]
 			w_d=palms[0][2]
+			h_d=palms[0][3]
 
 			feed_image = webcam_img[y_d:y_d+h_d+20, x_d:x_d+w_d+10]
 
@@ -91,20 +94,27 @@ while(ret):
 			cv2.imshow('feed_image',feed_image)
 		except:
 			print('no boxes maybe')
+			(x_d, y_d, w_d, h_d) = (185,39,75,75)
+			feed_image = webcam_img[y_d:y_d+h_d+20, x_d:x_d+w_d+10]
+			feed_image = cv2.resize(feed_image,(28,28))
+			cv2.rectangle(webcam_img,(x_d,y_d),(x_d+w_d,y_d+h_d),(0,255,0),2)
+
+	grabcut=utilities.grabcut(webcam_img,(x_d, y_d, w_d, h_d))
+	cv2.imshow('grabcut',cv2.cvtColor(grabcut, cv2.COLOR_RGB2BGR))
 
 	if (display > 0):
 		if (fps > 0):
 			detector_utils.draw_fps_on_image("FPS : " + str(int(fps)),
                                              webcam_img)
 		cv2.imshow('Single-Threaded Detection',cv2.cvtColor(webcam_img, cv2.COLOR_RGB2BGR))
+		
 
 		if cv2.waitKey(25) & 0xFF == ord('q'):
 			cv2.destroyAllWindows()
 			cap.release()
 			break
 	else:
-		print("frames processed: ", num_frames, "elapsed time: ",
-              elapsed_time, "fps: ", str(int(fps)))
+		print('display is not set')
 
 
 

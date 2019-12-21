@@ -14,7 +14,8 @@ def predict_gesture(img):
 	img=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	#print(img.shape)
 	img = np.reshape(img,(28,28,1))
-	cv2.imshow('img',img)
+	# print(img)
+	cv2.imshow('img',cv2.resize(img, (100,100)))
 
 	#img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	#query = model.predict_classes(img.reshape((1,28,28,1)))
@@ -23,5 +24,7 @@ def predict_gesture(img):
 	prediction=model.predict_classes(query).round()
 	return np.argmax(prediction)
 
-# answer=predict_gesture(cv2.imread('name.png'))
+
+
+# answer=predict_gesture(cv2.imread('0.png'))
 # print(answer)
