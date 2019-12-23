@@ -26,7 +26,7 @@ def ycbcr_skin_mask(image):
 def hsv_skin_mask(image):
     
     blur = cv2.GaussianBlur(image, (3,3), 0)
-    hsv = cv2.cvtColor(blur, cv2.COLOR_RGB2HSV)
+    hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)
 
     # lower_color = np.array([108, 23, 82])
     # upper_color = np.array([179, 255, 255])

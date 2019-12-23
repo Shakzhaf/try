@@ -29,8 +29,9 @@ while ret:
     ret, image = cap.read()
     image  = cv2.resize(image,(width,height))
     image = cv2.flip(image,1)
-    image = utilities.contour_mask(image)
-    image_hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV) 
+    image_copy = image.copy()
+    image = utilities.hsv_skin_mask(image)
+    image_hsv = cv2.cvtColor(image_copy,cv2.COLOR_BGR2HSV) 
 
     if cv2.waitKey(25) & 0xFF == ord('c'):
         calibarate = True
@@ -52,8 +53,8 @@ while ret:
             calibarate = False
 
         
-        grabcut = utilities.grabcut(image,(x_d, y_d, w_d, h_d))
-        cv2.imshow('grabcut',grabcut)
+        # grabcut = utilities.grabcut(image,(x_d, y_d, w_d, h_d))
+        # cv2.imshow('grabcut',grabcut)
         # skin = utilities.contour_mask(grabcut)
         # cv2.imshow('skin', skin)
 
@@ -77,7 +78,7 @@ while ret:
     cv2.imshow('input image: ', image)
     # cv2.imshow('preprocessed: ', preprocess(image))
     cv2.imshow('sample: ', cv2.cvtColor(model_hsv,cv2.COLOR_HSV2RGB))
-    cv2.imshow('answer: ',cv2.bitwise_and(image,image, mask = thresh))
+    cv2.imshow('answer: ',cv2.bitwise_and(image_copy,image_copy, mask = image))
 
     if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
