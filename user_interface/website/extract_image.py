@@ -3,6 +3,7 @@ from urllib.request import urlopen
 import urllib
 from bs4 import BeautifulSoup
 import re
+import concurrent.futures
 
 def get_image(url, number_of_images=1):
     hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -31,6 +32,10 @@ def get_images(links):
         images.append(get_image(url))
     return images
 
+def get_images_concurrently(img_urls):
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        results=executor.map(get_image, img_urls)
+    return(list(results))
 
     #url='https://projects.raspberrypi.org/en/projects/python-web-server-with-flask/7'
     #images=get_image(url)

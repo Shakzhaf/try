@@ -260,7 +260,7 @@ z-index: 1000;
 
 #content {
 	width: 80%;
-	overflow: scroll;
+	overflow: hidden;
 }
 
 

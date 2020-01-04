@@ -20,15 +20,11 @@ def index():
 def getvalue():
     global query,db,total_results,posts,quantity
     query=request.form['query']
-    #age=request.form['age']
-    #db=request.form['dateofbirth']
-    #result_link,result_title,result_desc=search(query)
-    #images=get_images(result_link)
-    #return render_template('pass.html', links=result_link, titles=result_title, desc=result_desc, images=images)
-
+    
     db=search(query, number_of_query=25)
-    #print(db)
+
     quantity=3
+    
     total_results=len(db)
     posts=total_results
 
