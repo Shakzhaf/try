@@ -14,16 +14,26 @@ def get_image(url, number_of_images=1):
        'Connection': 'keep-alive'}
     #req = urllib.request(url, headers=hdr)
     #page = urllib.urlopen(req)
-    
-    
-    request = urllib.request.Request(url, headers=hdr)
-    opener = urllib.request.build_opener()
-    response = opener.open(request)
-    bs = BeautifulSoup(response, 'html.parser')
-    
-    image = bs.find_all('img', {'src':re.compile('.jpg')})
-    if len(image)<1:
-        image.append({'src':'http://netdna.webdesignerdepot.com/uploads/2008/11/sample-graphic.jpg'})
+    # 2FmcHiLCwTU
+    if 'youtube' in url:
+        image=[]
+        if 'channel' in url:
+            image.append({'src':'http://netdna.webdesignerdepot.com/uploads/2008/11/sample-graphic.jpg'})
+        else:
+            id = url[-11:]
+            image.append({'src':'http://img.youtube.com/vi/'+id+'/0.jpg'})
+    else:
+        request = urllib.request.Request(url, headers=hdr)
+        opener = urllib.request.build_opener()
+        response = opener.open(request)
+        bs = BeautifulSoup(response, 'html.parser')
+        
+        image = bs.find_all('img', {'src':re.compile('.jpg')})
+        if len(image)<1:
+            image = bs.find_all('img', {'src':re.compile('.png')})
+            if len(image)<1:
+                image.append({'src':'http://netdna.webdesignerdepot.com/uploads/2008/11/sample-graphic.jpg'})
+
     return image[0]['src']
 
 def get_images(links):
