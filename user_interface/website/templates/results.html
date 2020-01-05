@@ -48,6 +48,7 @@
                       <div class="iframe-preview">
                         <iframe id="iframe" src="" style="border:0px #FFFFFF none;" name="test" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="2000px" width="1000px"></iframe>
                       </div>
+                      
                     </a>
                   </div>
                 </div>
@@ -123,33 +124,35 @@
                 
                 template_clone.querySelector("#imageimage").setAttribute("href",`${data[i][1]}`)
                 template_clone.querySelector("#imageimage").setAttribute("alt",`${data[i][0]}`)
+                template_clone.querySelector("#imageimage").setAttribute("src",`${data[i][3]}`)
                 template_clone.querySelector("#title").innerHTML = `${data[i][0]}`
                 template_clone.querySelector("#titleLink").setAttribute("href", `${data[i][1]}`)
-                template_clone.querySelector("#content").innerHTML = data[i][2];
+                template_clone.querySelector("#content").innerHTML = `${data[i][2]}`;
                 template_clone.querySelector("#link").innerHTML = `${data[i][1]}`;
                 template_clone.querySelector("#link").setAttribute("href", `${data[i][1]}`);
                 template_clone.querySelector("#iframe").setAttribute("src", `${data[i][1]}`);
                 template_clone.querySelector("#preview").setAttribute("href", `${data[i][1]}`);
-                
-                
-                async function get_image(){
-                  fetch(`/getimg?link=${data[i][1]}`).then(
-                    (response) => {
-                      response.json().then(
-                        (url) => {
-                          template_clone.querySelector("#imageimage").setAttribute("src",url)
-                          scroller.appendChild(template_clone);
-                          return
-                        }
-                      )
-                    }
-                  )
-                }
+                                
+                // async function get_image(){
+                //   fetch(`/getimg?link=${data[i][1]}`).then(
+                //     (response) => {
+                //       response.json().then(
+                //         (url) => {
+                //           template_clone.querySelector("#imageimage").setAttribute("src",url)
+                //           scroller.appendChild(template_clone);
+                //           return
+                //         }
+                //       )
+                //     }
+                //   )
+                // }
 
-                get_image();
+                // get_image();
 
 
                 // Increment the counter
+                scroller.appendChild(template_clone);
+
                 counter += 1;
 
                 // Update the counter in the navbar

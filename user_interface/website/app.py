@@ -2,13 +2,22 @@ from flask import Flask, render_template, request, jsonify, make_response
 from googlesearch import search
 from extract_image import get_images
 from extract_image import get_image
+from extract_image import get_images_concurrently
 import time
+import concurrent.futures
+
 
 query=None
 db=list()
+database=list()
 total_results=25
 posts=total_results
 quantity=3
+
+def append_image(row):
+    row.append(get_image(row[1]))
+    return row
+
 
 app = Flask(__name__)
 
@@ -18,10 +27,12 @@ def index():
 
 @app.route('/', methods=['POST'])
 def getvalue():
-    global query,db,total_results,posts,quantity
+    global query,db,database,total_results,posts,quantity
     query=request.form['query']
     
     db=search(query, number_of_query=25)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        database=list(executor.map(append_image, db))
 
     quantity=3
     
@@ -47,9 +58,10 @@ def load():
             # for i in range(quantity):
             #     print('extracting image for '+str(i))
             #     db[i].append(get_image(db[i][1]))
+
                 
             
-            res = make_response(jsonify(db[0: min(quantity, total_results)]), total_results)
+            res = make_response(jsonify(database[0: min(quantity, total_results)]), total_results)
 
         elif counter == posts:
             print("No more results")
@@ -63,7 +75,7 @@ def load():
             #     print('extracting image for '+str(i))
             #     db[i].append(get_image(db[i][1]))
 
-            res = make_response(jsonify(db[counter: min(counter + quantity,total_results)]), total_results)
+            res = make_response(jsonify(database[counter: min(counter + quantity,total_results)]), total_results)
 
     return res
 
