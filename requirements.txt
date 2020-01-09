@@ -1,4 +1,3 @@
-#Requirements for flask app
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: win-64
@@ -8,6 +7,7 @@ atomicwrites=1.3.0=py_0
 attrs=19.3.0=py_0
 automat=0.8.0=py_0
 beautifulsoup4=4.6.3=py35_0
+blas=1.0=mkl
 ca-certificates=2019.11.27=0
 cachetools=3.1.1=py_0
 certifi=2018.8.24=py35_1
@@ -23,8 +23,10 @@ google-auth=1.7.1=py_0
 google-auth-httplib2=0.0.3=py_2
 httplib2=0.11.3=py35_1
 hyperlink=19.0.0=py_0
+icc_rt=2019.0.0=h0cc432a_1
 idna=2.7=py35_0
 incremental=17.5.0=py35_0
+intel-openmp=2019.4=245
 itsdangerous=1.1.0=py_0
 jinja2=2.10.3=py_0
 libiconv=1.15=h1df5818_7
@@ -32,8 +34,13 @@ libxml2=2.9.9=h464c3ec_0
 libxslt=1.1.33=h579f668_0
 lxml=4.2.5=py35hef2cd61_0
 markupsafe=1.0=py35hfa6e2cd_1
+mkl=2018.0.3=1
+mkl_fft=1.0.6=py35hdbbee80_0
+mkl_random=1.0.1=py35h77b88f5_1
 more-itertools=4.3.0=py35_0
-openssl=1.0.2t=vc14h62dcd97_0
+numpy=1.15.2=py35ha559c80_0
+numpy-base=1.15.2=py35h8128ebf_0
+openssl=1.0.2u=he774522_0
 parsel=1.5.0=py35_0
 pathlib2=2.3.2=py35_0
 pip=10.0.1=py35_0
@@ -55,6 +62,8 @@ service_identity=18.1.0=pyh91ea838_0
 setuptools=40.2.0=py35_0
 simplejson=3.16.1=py35hfa6e2cd_0
 six=1.11.0=py35_1
+tbb=2019.4=h74a9793_0
+tbb4py=2018.0.5=py35he980bc4_0
 twisted=18.7.0=py35hfa6e2cd_1
 uritemplate=3.0.0=py_1
 vc=14.1=h0510ff6_4
